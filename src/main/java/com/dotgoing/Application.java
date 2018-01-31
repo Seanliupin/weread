@@ -1,12 +1,12 @@
-package com.dotgoing.weread;
+package com.dotgoing;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class WereadApplication {
+public class Application {
 
 	public static void main(String[] args) {
-		SpringApplication.run(WereadApplication.class, args);
+		SpringApplication.run(Application.class, args);
 	}
 }
