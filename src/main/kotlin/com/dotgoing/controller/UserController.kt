@@ -2,39 +2,29 @@ package com.dotgoing.controller
 
 import com.dotgoing.model.User
 import com.dotgoing.repository.UserRepository
+import com.dotgoing.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import java.util.*
 
 @RestController
 @RequestMapping("/user")
-class UserController {
-
-    @Autowired
-    private val userRepository: UserRepository? = null
+class UserController @Autowired constructor(val userRepository: UserRepository,
+                                            val userService: UserService) {
 
     @PostMapping("/create")
     fun create(): Long? {
-        val p = User("first -1 " + System.currentTimeMillis(), "last")
-        userRepository?.save(p)
-        val x = userRepository!!.save(p)
-        return x.id
+        val user = User("first -2 safe " + System.currentTimeMillis(), "last")
+        return userService.createUser(user).id
     }
 
     @GetMapping("/{userId}")
-    fun info(@PathVariable userId: Long): User {
-        return userRepository!!.findOne(userId)
+    fun getById(@PathVariable userId: Long): User {
+        return userRepository.findOne(userId)
     }
 
     @RequestMapping("/all")
-    fun persons(): List<User> {
-        userRepository!!.findAll()
-
-        val j = ArrayList<User>()
-        userRepository.findAll().forEach { person -> j.add(person) }
-
-        return j
-
+    fun all(): List<User> {
+        return userRepository.findAll().toList()
     }
 
 }
