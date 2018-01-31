@@ -1,18 +1,40 @@
 package com.dotgoing.controller
 
 import com.dotgoing.model.User
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
-import java.util.concurrent.atomic.AtomicLong
+import com.dotgoing.repository.PersonRepository
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.*
+import java.util.*
 
 @RestController
+@RequestMapping("/user")
 class UserController {
-    val counter = AtomicLong()
 
-    @GetMapping("/user")
-    fun greeting(@RequestParam(value = "name", defaultValue = "World") name: String): User {
-        return User("Hello, dddd $name", counter.incrementAndGet().toInt())
+    @Autowired
+    private val personRepository: PersonRepository? = null
+
+    @PostMapping("/create")
+    fun create(): Long? {
+        val p = User("first -1 " + System.currentTimeMillis(), "last")
+        personRepository?.save(p)
+        val x = personRepository!!.save(p)
+        return x.id
+    }
+
+    @GetMapping("/{userId}")
+    fun info(@PathVariable userId: Long): User {
+        return personRepository!!.findOne(userId)
+    }
+
+    @RequestMapping("/all")
+    fun persons(): List<User> {
+        personRepository!!.findAll()
+
+        val j = ArrayList<User>()
+        personRepository.findAll().forEach { person -> j.add(person) }
+
+        return j
+
     }
 
 }

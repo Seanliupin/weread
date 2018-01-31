@@ -1,11 +1,9 @@
 package com.dotgoing.repository
 
-import com.dotgoing.model.Person
+import com.dotgoing.model.User
 import org.springframework.data.repository.PagingAndSortingRepository
 import org.springframework.data.repository.query.Param
 
-interface PersonRepository : PagingAndSortingRepository<Person, Long> {
-
-    fun findByLastName(@Param("name") name: String): List<Person>
-
+interface PersonRepository : PagingAndSortingRepository<User, Long> {
+    fun findByLastName(@Param("name") name: String): List<User>
 }

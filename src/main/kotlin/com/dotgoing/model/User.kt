@@ -1,3 +1,15 @@
 package com.dotgoing.model
 
-data class User(val name: String, val age: Int)
+import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType.IDENTITY
+import javax.persistence.Id
+import javax.persistence.Table
+
+@Entity
+@Table(name = "person")
+data class User(var firstName: String = "", val lastName: String = "") {
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    val id: Long = 0
+}
