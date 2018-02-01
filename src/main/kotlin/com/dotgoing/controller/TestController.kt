@@ -4,6 +4,10 @@ import com.dotgoing.model.User
 import com.dotgoing.repository.UserRepository
 import com.dotgoing.service.TestService
 import com.dotgoing.service.UserService
+import com.dotgoing.wx.parser.Div
+import com.dotgoing.wx.parser.H1
+import com.dotgoing.wx.parser.Item
+import com.dotgoing.wx.parser.Text
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
@@ -15,6 +19,11 @@ import org.springframework.web.bind.annotation.RestController
 class TestController @Autowired constructor(val userRepository: UserRepository,
                                             val userService: UserService,
                                             val testService: TestService) {
+
+    @GetMapping("/")
+    fun index(): String {
+        return "this is test"
+    }
 
     @GetMapping("/not_safe_create")
     fun create_test(): Long? {
@@ -31,5 +40,14 @@ class TestController @Autowired constructor(val userRepository: UserRepository,
     @GetMapping("/{userId}")
     fun info(@PathVariable userId: Long): User {
         return userRepository.findOne(userId)
+    }
+
+
+    @GetMapping("/node")
+    fun node(): List<Item> {
+
+        val chi = listOf(Text("this is text"), H1("strong"))
+        val x = listOf(Text("this is text"), Div("div_class", chi))
+        return x
     }
 }
