@@ -24,6 +24,13 @@ class TestController @Autowired constructor(val userRepository: UserRepository,
                                             val wxHelper: WXHelper,
                                             val testService: TestService) {
 
+    @Value("\${app.id}")
+    private val appid: String? = null
+
+    @Value("\${app.secret}")
+    private val secret: String? = null
+
+
     @GetMapping("/")
     fun index(): String {
         return "this is test"
