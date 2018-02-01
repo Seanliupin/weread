@@ -36,7 +36,10 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 }
+
+
 
 
 dependencies {
@@ -46,6 +49,7 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('org.liquibase:liquibase-core')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile "com.github.jkcclemens:khttp:-SNAPSHOT"
 
     runtime('org.postgresql:postgresql:42.1.4')
 

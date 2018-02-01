@@ -4,11 +4,14 @@ import com.dotgoing.model.User
 import com.dotgoing.repository.UserRepository
 import com.dotgoing.service.TestService
 import com.dotgoing.service.UserService
+import com.dotgoing.utils.WXHelper
 import com.dotgoing.wx.parser.Div
 import com.dotgoing.wx.parser.H1
 import com.dotgoing.wx.parser.Item
 import com.dotgoing.wx.parser.Text
+import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/test")
 class TestController @Autowired constructor(val userRepository: UserRepository,
                                             val userService: UserService,
+                                            val wxHelper: WXHelper,
                                             val testService: TestService) {
 
     @GetMapping("/")
@@ -40,6 +44,12 @@ class TestController @Autowired constructor(val userRepository: UserRepository,
     @GetMapping("/{userId}")
     fun info(@PathVariable userId: Long): User {
         return userRepository.findOne(userId)
+    }
+
+
+    @GetMapping("/json")
+    fun json(): Item {
+        return Text("this is text")
     }
 
 
