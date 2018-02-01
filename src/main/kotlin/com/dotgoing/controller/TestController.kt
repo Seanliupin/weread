@@ -5,10 +5,9 @@ import com.dotgoing.repository.UserRepository
 import com.dotgoing.service.TestService
 import com.dotgoing.service.UserService
 import com.dotgoing.utils.WXHelper
-import com.dotgoing.wx.parser.Div
-import com.dotgoing.wx.parser.H1
 import com.dotgoing.wx.parser.Item
 import com.dotgoing.wx.parser.Text
+import com.dotgoing.wx.parser.parse
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -66,17 +65,27 @@ class TestController @Autowired constructor(val userRepository: UserRepository,
         val json = JSONObject()
         val subJson = JSONObject()
         subJson.put("key1", "value1")
-        json.put("key2", subJson)
+        json.put("key2", listOf(subJson, subJson))
 
         return json.toString()
     }
 
 
-    @GetMapping("/node")
-    fun node(): List<Item> {
+    @GetMapping("/node", produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
+    fun node(): String {
+        val str = """
+            # this is line
+            ## this is two
 
-        val chi = listOf(Text("this is text"), H1("strong"))
-        val x = listOf(Text("this is text"), Div("div_class", chi))
-        return x
+             # this is line
+
+            this is zhengwen
+
+
+        """.trimIndent()
+
+        val re = JSONObject()
+        re.put("nodes", str.parse())
+        return re.toString()
     }
 }
