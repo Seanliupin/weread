@@ -39,9 +39,6 @@ repositories {
     maven { url "https://jitpack.io" }
 }
 
-
-
-
 dependencies {
     compileOnly('org.projectlombok:lombok:1.16.18')
     //jpa 自带了hibernate功能
@@ -50,6 +47,8 @@ dependencies {
     compile('org.liquibase:liquibase-core')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile "com.github.jkcclemens:khttp:-SNAPSHOT"
+    compile "com.fasterxml.jackson.core:jackson-core:2.5.4"
+    compile "com.fasterxml.jackson.core:jackson-databind:2.5.4"
 
     runtime('org.postgresql:postgresql:42.1.4')
 

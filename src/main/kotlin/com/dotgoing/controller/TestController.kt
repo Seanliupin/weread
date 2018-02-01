@@ -12,6 +12,7 @@ import com.dotgoing.wx.parser.Text
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
@@ -57,6 +58,17 @@ class TestController @Autowired constructor(val userRepository: UserRepository,
     @GetMapping("/json")
     fun json(): Item {
         return Text("this is text")
+    }
+
+
+    @GetMapping("/json_1", produces = arrayOf(MediaType.APPLICATION_JSON_VALUE))
+    fun jsonmy(): String {
+        val json = JSONObject()
+        val subJson = JSONObject()
+        subJson.put("key1", "value1")
+        json.put("key2", subJson)
+
+        return json.toString()
     }
 
 
